@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+
+
+{% block content %}
+
+<h1>{{post.title}} <small>by {{post.author}}</small></h1>
+<p>{{post.content}}</p>
+
+<hr>
+<a class="btn btn-outline-info btn-sm" href="{% url 'home' %}">back</a>
+{% endblock %}
