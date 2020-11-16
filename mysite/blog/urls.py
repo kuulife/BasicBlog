@@ -8,6 +8,7 @@ from .views import (
 	PostCategoryView,
 	CategoryView,
 	CategoryListView,
+	LikeView,
 )
 
 urlpatterns = [
@@ -19,4 +20,5 @@ urlpatterns = [
     path('post_add_category/', PostCategoryView.as_view(), name='add-category'),
     path('category/<str:cats>/',CategoryView, name = 'category'),
     path('category_list/',CategoryListView, name = 'category-list'),
+    path('like/<int:pk>/',LikeView, name = 'like-post'),
 ]	

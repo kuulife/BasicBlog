@@ -16,5 +16,12 @@ curent user: {{user.id}}
 <a class="btn btn-sm btn-outline-warning" href="{% url 'post-delete' post.id %}">Delete</a>
 {% endif%}
 <hr>
+
+<form action="{% url 'like-post' post.id %}" method="POST">
+	{% csrf_token %}
+	<button class="btn btn-sm btn-success" name="post_id" value="{{post.id}}" type="submit">like</button>- <small class="btn btn-sm btn-info">{{total_likes}} likes</small>
+</form>
+
+<hr>
 <a class="btn btn-light btn-sm" href="{% url 'home' %}">back</a>
 {% endblock %}
