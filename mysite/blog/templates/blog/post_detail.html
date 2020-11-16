@@ -6,10 +6,12 @@
 
 {% block content %}
 
+curent user: {{user.id}}
+
 <h1>{{post.title}} <small>by {{post.author}}</small> <span style="font-size: 10px" class="text-muted">{{post.date_published|date:"F j, Y"}}</span></h1>
 <p>{{post.content}}</p>
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user.id == post.author.id%}
 <a class="btn btn-sm btn-outline-info" href="{% url 'post-update' post.id %}">Edit</a>
 <a class="btn btn-sm btn-outline-warning" href="{% url 'post-delete' post.id %}">Delete</a>
 {% endif%}

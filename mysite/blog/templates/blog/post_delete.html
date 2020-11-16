@@ -7,6 +7,7 @@
 
 {% block content %}
 
+{% if user.id == post.author.id  and user.is_authenticated %}
 <h1>Delete Post</h1>
 
 <div class="form-group">
@@ -15,5 +16,8 @@
 		<button class="mt-2 btn btn-danger">Delete Post</button>
 	</form>
 </div>
+{%else%}
+<p class="alert alert-warning">Youre not allowed</p>
+{% endif %}
 
 {% endblock %}
