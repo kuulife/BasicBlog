@@ -13,11 +13,28 @@ from .forms import PostForm , PostUpdateForm
 class HomeView(ListView):
 	model = Post
 	template_name = 'blog/home.html'
+	cats  = Category.objects.all()
 	ordering = ['-date_published']
+
+	def get_context_data(self, *args , **kwargs):
+		cat_menu = Category.objects.all()
+		context = super(HomeView,self).get_context_data(*args , **kwargs)
+		context['cat_menu'] = cat_menu
+		return context
+
+
+def CategoryView(request, cats):
+	category_posts = Post.objects.filter(category = cats)
+	context = {
+		'category_posts':category_posts,
+		'cats':cats,
+	}
+	return render(request, 'blog/categories.html',context)
 
 class PostDetialView(DetailView):
 	model = Post
 	template_name = 'blog/post_detail.html'
+
 
 class PostCreatView(CreateView):
 	model = Post
@@ -40,6 +57,12 @@ class PostDeleteView(DeleteView):
 	success_url = reverse_lazy('home')
 
 
+def CategoryListView(request):
+	cat_menu_list = Category.objects.all()
+	context = {
+		'cat_menu_list':cat_menu_list,
+	}
+	return render(request, 'blog/categories_list.html',context)
 
 
 

@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+	Blog categories	
+{% endblock %}
+
+
+
+{% block content %}
+
+	<h1>Blog categories</h1>
+
+	
+	<ul>
+		{% for item in cat_menu_list %}
+			<li class="py-2">
+				<a class="btn btn-sm btn-outline-success" href="{% url 'category' item %}">
+				{{item}}
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
+	
+
+
+{% endblock %}

@@ -6,11 +6,13 @@
 <ul>
 	{% for post in object_list %}
 		<li><a href="{% url 'post-detail' post.pk %}">{{post.title}} </a> 
-			{{post.category}}
+			<a class="btn btn-sm btn-outline-secondary" href="{% url 'category' post.category %}">{{post.category|slugify}}</a>
 		{{post.date_published|date:"F j, Y"}} - {{post.author}}</li><br>
-		<p>{{post.content|slice:"200"|safe}}</p>
+		<p>{{post.content|slice:"200"}}</p>
 
 	{% endfor %}
 </ul>
+
+
 
 {% endblock %}
