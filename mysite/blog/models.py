@@ -1,31 +1,18 @@
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
-from django.urls import reverse
-
-
-class Category(models.Model):
-	name  = models.CharField(max_length = 200)
-
-	def __str__(self):
-		return self.name
-
-	def get_absolute_url(self):
-		return reverse('home')
+from django.utils import timezone
+from django.urls import  reverse
+from ckeditor.fields import RichTextField
 
 class Post(models.Model):
-	title = models.CharField(max_length = 200)
-	author = models.ForeignKey(User, on_delete = models.CASCADE)
-	content = models.TextField()
-	date_published = models.DateTimeField(default =timezone.now)
-	category = models.CharField(max_length = 200, default = 'uncategorized')
-	likes = models.ManyToManyField(User, related_name='blog_posts')
+	title = models.CharField(max_length=200)
+	content = RichTextField(blank=True, null=True)
+	posted = models.DateTimeField(default = timezone.now)
+	author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-	def total_likes(self):
-		return self.likes.count()
 
 	def __str__(self):
-		return f'{self.title} ||| {self.author}'
+		return self.title
 
 	def get_absolute_url(self):
 		return reverse('home')

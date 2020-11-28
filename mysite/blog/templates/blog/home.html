@@ -1,18 +1,14 @@
 {% extends 'blog/base.html' %}
 
-{% block content %}
-<h1>Hello world</h1>
-
-<ul>
-	{% for post in object_list %}
-		<li><a href="{% url 'post-detail' post.pk %}">{{post.title}} </a> 
-			<a class="btn btn-sm btn-outline-secondary" href="{% url 'category' post.category %}">{{post.category|slugify}}</a>
-		{{post.date_published|date:"F j, Y"}} - {{post.author}}</li><br>
-		<p>{{post.content|slice:"200"}}</p>
-
+	{% block content %}
+		<ul>
+			{% for post in object_list %}
+				<li>
+					<a href="{%url 'post-detail' post.id %}">{{post.title}}</a> --- <small>{{post.posted}}</small>
+				</li>
+		</ul>
+		{{post.content|safe}}<br>
+				<small>{{post.author.username}}</small><br>
+				<hr>
 	{% endfor %}
-</ul>
-
-
-
-{% endblock %}
+	{% endblock %}

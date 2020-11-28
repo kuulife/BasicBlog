@@ -1,23 +1,20 @@
 {% extends 'blog/base.html' %}
+
 {% load crispy_forms_tags %}
 
-{% block title %}
-	Delete Post
-{% endblock %}
+	{% block title %}
+		<title>DeletePost-{{post.title}}</title>
+	{% endblock %}
 
-{% block content %}
-
-{% if user.id == post.author.id  and user.is_authenticated %}
-<h1>Delete Post</h1>
-
-<div class="form-group">
-	<form method="Post">
-		{% csrf_token %}
-		<button class="mt-2 btn btn-danger">Delete Post</button>
-	</form>
-</div>
-{%else%}
-<p class="alert alert-warning">Youre not allowed</p>
-{% endif %}
-
-{% endblock %}
+	{% block content %}
+		<form method="POST">
+			{% csrf_token%}
+			<div class="alert alert-danger">
+				are you sure you want to delete {{post.title}}
+			</div>
+			<button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+		</form>
+		
+		
+		
+	{% endblock %}
