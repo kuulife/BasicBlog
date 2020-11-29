@@ -7,7 +7,7 @@
 					<a href="{%url 'post-detail' post.id %}">{{post.title}}</a> --- <small>{{post.posted}}</small>
 				</li>
 		</ul>
-		{{post.content|safe}}<br>
+		{{post.content|slice:":200"|safe}}<br>
 				<small>{{post.author.username}}</small><br>
 				<hr>
 	{% endfor %}

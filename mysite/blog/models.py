@@ -4,11 +4,23 @@ from django.utils import timezone
 from django.urls import  reverse
 from ckeditor.fields import RichTextField
 
+class Category(models.Model):
+	name = models.CharField(max_length=200,default ='uncatogorozed')
+	ordering = ['name']
+
+	def __str__(self):
+		return self.name
+
+	def get_absolute_url(self):
+		return reverse('home')
+
+
 class Post(models.Model):
 	title = models.CharField(max_length=200)
 	content = RichTextField(blank=True, null=True)
 	posted = models.DateTimeField(default = timezone.now)
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
+	category = models.ForeignKey(Category, on_delete = models.SET_NULL, null = True)
 
 
 	def __str__(self):
