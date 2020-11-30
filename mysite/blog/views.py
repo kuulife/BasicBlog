@@ -45,6 +45,10 @@ class PostCreateView(LoginRequiredMixin,CreateView):
 	form_class = PostForm
 	template_name = 'blog/add_post.html'
 
+	def form_valid(self,form):
+		form.instance.author = self.request.user
+		return super().form_valid(form)
+
 class PostCategoryView(CreateView):
 	model = Category
 	template_name = 'blog/add_category.html'

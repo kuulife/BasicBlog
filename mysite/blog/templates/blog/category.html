@@ -1,19 +1,34 @@
-{% extends 'blog/base.html' %}
-{% load crispy_forms_tags %}
 
+{% extends 'blog/base.html' %}
+	
 	{% block title %}
-		<title>NewCategory</title>
+		<title>detail-{{post.title}}</title>
 	{% endblock %}
 
 	{% block content %}
 		{% if category_values %}
 			{% for post in category_values %}
-				<h5>{{post.category}}</h5>
-				<h2>{{post.title}}</h2>
-				<h3>{{post.content|slice:"10"|safe}}</h3>
-				<h4>{{post.author.username}}</h4>
+				<h1>
+					{{post.title}} ---
+				</h1>
+				<small>{{post.posted}}</small><br>
+				<p class="d-flex">{{post.content|safe}}<br></p>
+				<small>{{post.author.username}}</small><br>
+				<hr>
 			{% endfor %}
 		{% else %}
-			<div class="alert alert-warning">sorry no category like this</div>
+			<div class="alert alert-warning">
+				sorry no category 
+			</div>
 		{% endif %}
+
+		{% if user.is_authenticated %}
+			{% if post.author == user%}
+				<a class="btn btn-sm btn-outline-info" href="{% url 'post-update' post.id %}">Update Post</a>
+				<a class="btn btn-sm btn-outline-warning" href="{% url 'post-delete' post.id %}">Delete Post</a>
+				<br>
+			{% endif %}
+		{% endif %}
+	<a href="{% url 'home' %}" class="btn btn-sm btn-outline-primary">back to home</a>
+		
 	{% endblock %}
