@@ -3,13 +3,13 @@
 	{% block title %}
 		<title>NewPost{{post.title}}</title>
 	{% endblock %}
+
 	{% block content %}
 		<div class="form-group">
 			<form method="POST">
 				{% csrf_token %}
 				{{form|crispy}}
 				{{form.media}}
-				<span class="text-muted">if no category<a class="btn btn-sm btn-outline-info" href="{% url 'add-category' %}">add category</a></span>
 				<hr>
 				<button class="btn btn-outline-info btn-sm" type="submit">Post</button>
 			</form>

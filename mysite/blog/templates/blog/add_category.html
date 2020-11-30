@@ -10,7 +10,6 @@
 			<form method="POST">
 				{% csrf_token %}
 				{{form|crispy}}
-				{{form.media}}
 				<button class="btn btn-outline-info btn-sm" type="submit">add category</button>
 			</form>
 		</div>

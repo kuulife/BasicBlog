@@ -1,8 +1,19 @@
 {% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+	{% block title %}
+		<title>NewCategory</title>
+	{% endblock %}
 
 	{% block content %}
-
-		<h1>{{cats}}</h1>
-
-
+		{% if category_values %}
+			{% for post in category_values %}
+				<h5>{{post.category}}</h5>
+				<h2>{{post.title}}</h2>
+				<h3>{{post.content|slice:"10"|safe}}</h3>
+				<h4>{{post.author.username}}</h4>
+			{% endfor %}
+		{% else %}
+			<div class="alert alert-warning">sorry no category like this</div>
+		{% endif %}
 	{% endblock %}

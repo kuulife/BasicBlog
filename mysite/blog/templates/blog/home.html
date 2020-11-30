@@ -7,8 +7,10 @@
 					<a href="{%url 'post-detail' post.id %}">{{post.title}}</a> --- <small>{{post.posted}}</small>
 				</li>
 		</ul>
-		{{post.content|slice:":200"|safe}}<br>
-				<small>{{post.author.username}}</small><br>
-				<hr>
+		<a class="text-muted" href="{% url 'category' post.category|slugify %}">{{post.category}}
+		</a>
+		<p>{{post.content|slice:":200"|safe}}</p><br>
+		<small>{{post.author.username}}</small><br>
+		<hr>
 	{% endfor %}
 	{% endblock %}

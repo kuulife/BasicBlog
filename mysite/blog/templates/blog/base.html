@@ -17,10 +17,23 @@
   		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     		<div class="navbar-nav">
       			{% if user.is_authenticated %}
+      				{% if cat_menu %}
+		      			<li class="nav-item dropdown">
+					        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					          Categories
+					        </a>
+					        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					        	{% for item in cat_menu %}
+								   <a class="dropdown-item" href="{% url 'category' item|slugify %}">{{item}}</a>
+								{% endfor %}
+					        </div>
+				      </li>
+		      		{% endif %}
       			<a class="nav-item nav-link " href="{% url 'home' %}">Home</a>
       			<a class="nav-item nav-link" href="{% url 'about' %}">About</a>
       			<a class="nav-item nav-link" href="{% url 'post-new' %}">New Post</a>
       			<a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+      			<a class="nav-item nav-link" href="{% url 'category-new' %}">Add category</a>
       			{% else %}
       				<a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
       				<a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
