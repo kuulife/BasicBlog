@@ -18,7 +18,7 @@
 				<br>
 			{% endif %}
 		{% endif %}
-		
+
 		{% if user.is_authenticated %}
 		<br>
 			<form action="{% url 'like-post' post.id %}" method="POST">
@@ -32,7 +32,7 @@
 			</form>
 		{% endif %}
 		<hr><br>
-	<a href="{% url 'home' %}" class="btn btn-sm btn-outline-primary">back to home</a>
+	<a href="{% url 'home' %}" class="btn btn-sm btn-outline-primary">back to home</a><small>alba kot</small>
 		
 
 		
