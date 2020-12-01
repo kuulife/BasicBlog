@@ -10,7 +10,7 @@
 		</h1><small>{{post.posted}}</small><br>
 		<p class="d-flex">{{post.content|safe}}<br></p>
 		<small>{{post.author.username}}</small><br>
-		<hr>
+		<br>
 		{% if user.is_authenticated %}
 			{% if post.author == user%}
 				<a class="btn btn-sm btn-outline-info" href="{% url 'post-update' post.id %}">Update Post</a>
@@ -18,12 +18,23 @@
 				<br>
 			{% endif %}
 		{% endif %}
-	<a href="{% url 'home' %}" class="btn btn-sm btn-outline-primary">back to home</a>
-		<hr><br>
-
-		<form action="{% url 'like-post' post.id %}" method="POST">
-			{% csrf_token %}
-			<button class="btn btn-sm btn-outline-success" type="submit" name="post_id" value="{{post.id}}">Like</button> --- {{total_likes}} <span class="text-muted">likes</span>
-		</form>
 		
+		{% if user.is_authenticated %}
+		<br>
+			<form action="{% url 'like-post' post.id %}" method="POST">
+				{% csrf_token %}
+
+				{% if liked %}
+					<button class="btn btn-sm btn-outline-danger" type="submit" name="post_id" value="{{post.id}}">Unlike</button>
+				{% else %}
+					<button class="btn btn-sm btn-outline-success" type="submit" name="post_id" value="{{post.id}}">Like</button>
+				{% endif%} ... {{total_likes}} <span class="text-muted">likes</span>
+			</form>
+		{% endif %}
+		<hr><br>
+	<a href="{% url 'home' %}" class="btn btn-sm btn-outline-primary">back to home</a>
+		
+
+		
+	
 	{% endblock %}
