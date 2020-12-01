@@ -1,1 +1,16 @@
-profile.html
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+	{% block title %}
+		<title>Profile</title>
+	{% endblock %}
+
+	{% block content %}
+		<div class="form-group">
+			<form method="POST">
+				{% csrf_token %}
+				{{form|crispy}}
+				<button class="btn btn-outline-info btn-sm" type="submit">Update Profile</button>
+			</form>
+		</div>
+	{% endblock %}

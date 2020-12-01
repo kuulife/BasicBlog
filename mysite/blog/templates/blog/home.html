@@ -9,6 +9,7 @@
 		</ul>
 		<a class="text-muted" href="{% url 'category' post.category|slugify %}">{{post.category}}
 		</a>
+		<p>{{post.snippet|safe}}</p><br>
 		<p>{{post.content|slice:":200"|safe}}</p><br>
 		<small>{{post.author.username}}</small><br>
 		<hr>

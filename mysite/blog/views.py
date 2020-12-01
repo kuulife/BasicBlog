@@ -17,6 +17,7 @@ def CategoryView(request,cats):
 	cat_menu = Category.objects.all()
 	context = {'cats':cats,'category_values':category_values,'cat_menu':cat_menu}
 	return render(request, 'blog/category.html',context)
+	ordering = ['-posted']
 
 def LikeView(request,pk):
 	post = get_object_or_404(Post, id=request.POST.get('post_id'))
@@ -45,6 +46,7 @@ class HomeView(ListView):
 class PostDetailView(DetailView):
 	model = Post
 	template_name = 'blog/detail_post.html'
+	ordering = ['posted']
 
 	def get_context_data(self,*args,**kwargs):
 		cat_menu = Category.objects.all()

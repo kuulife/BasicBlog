@@ -17,6 +17,7 @@ class Category(models.Model):
 
 class Post(models.Model):
 	title = models.CharField(max_length=200)
+	snippet = models.CharField(max_length=300,blank=True)
 	content = RichTextField(blank=True, null=True)
 	posted = models.DateTimeField(default = timezone.now)
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
