@@ -21,7 +21,10 @@ class Post(models.Model):
 	posted = models.DateTimeField(default = timezone.now)
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	category = models.CharField(max_length = 200, default = 'uncotegorized')
+	likes = models.ManyToManyField(User, related_name='like_post')
 
+	def total_llikes(self):
+		return self.likes.count()
 
 	def __str__(self):
 		return self.title

@@ -19,5 +19,11 @@
 			{% endif %}
 		{% endif %}
 	<a href="{% url 'home' %}" class="btn btn-sm btn-outline-primary">back to home</a>
+		<hr><br>
+
+		<form action="{% url 'like-post' post.id %}" method="POST">
+			{% csrf_token %}
+			<button class="btn btn-sm btn-outline-success" type="submit" name="post_id" value="{{post.id}}">Like</button> --- {{total_likes}} <span class="text-muted">likes</span>
+		</form>
 		
 	{% endblock %}
