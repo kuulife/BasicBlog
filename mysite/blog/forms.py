@@ -10,7 +10,7 @@ for i in choices:
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
-		fields = ['title','content','snippet','category']
+		fields = ['title','content','snippet','header_image','category']
 
 		widgets = {
 		'category':forms.Select(choices=category_values),

@@ -8,6 +8,9 @@
 		<h1>
 			{{post.title}} ---
 		</h1><small>{{post.posted}}</small><br>
+		{% if post.header_image %}
+		<img width="200px" height="250px" src="{{post.header_image.url}}">
+		{% endif %}
 		<p class="d-flex">{{post.content|safe}}<br></p>
 		<small>{{post.author.username}}</small><br>
 		<br>
