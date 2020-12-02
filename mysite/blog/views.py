@@ -16,8 +16,10 @@ def CategoryView(request,cats):
 	category_values = Post.objects.filter(category=cats.replace('-',' '))
 	cat_menu = Category.objects.all()
 	context = {'cats':cats,'category_values':category_values,'cat_menu':cat_menu}
-	return render(request, 'blog/category.html',context)
 	ordering = ['-posted']
+	return render(request, 'blog/category.html',context)
+	
+
 
 def LikeView(request,pk):
 	post = get_object_or_404(Post, id=request.POST.get('post_id'))
