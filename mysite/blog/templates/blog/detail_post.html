@@ -12,7 +12,20 @@
 		<img width="200px" height="250px" src="{{post.header_image.url}}">
 		{% endif %}
 		<p class="d-flex">{{post.content|safe}}<br></p>
-		<small>{{post.author.username}}</small><br>
+		<img width="25" height="25" class="rounded-circle" src="{{post.author.profile.profile_image.url}}"><small>{{post.author.username}}</small>
+		{% if post.author.profile.instagram_urls %}
+			<a href="{{post.author.profile.instagram_urls}}">Instagram</a>
+		{% endif %}	
+		{% if post.author.profile.github_urls %}
+			<a href="{{post.author.profile.github_urls}}">| Github</a>
+		{% endif %}
+		{% if post.author.profile.twitter_urls %}
+			<a href="{{post.author.profile.twitter_urls}}">| Twitter</a>
+		{% endif %}
+		{% if post.author.profile.facebook_urls %}
+			<a href="{{post.author.profile.facebook_urls}}">| Facebook</a>
+		{% endif %}
+		<br>
 		<br>
 		{% if user.is_authenticated %}
 			{% if post.author == user%}

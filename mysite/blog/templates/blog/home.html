@@ -1,17 +1,15 @@
 {% extends 'blog/base.html' %}
 
 	{% block content %}
-		<ul>
-			{% for post in object_list %}
-				<li>
-					<a href="{%url 'post-detail' post.id %}">{{post.title}}</a> --- <small>{{post.posted}}</small>
-				</li>
-		</ul>
-		<a class="text-muted" href="{% url 'category' post.category|slugify %}">{{post.category}}
-		</a>
-		<p>{{post.snippet|safe}}</p><br>
-		<p>{{post.content|slice:":200"|safe}}</p><br>
-		<small>{{post.author.username}}</small><br>
-		<hr>
-	{% endfor %}
+		{% for post in object_list %}
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title"><a href="{% url 'post-detail' post.id %}">{{post.title}}</a></h5>
+					<h6 class="card-subtitle mb-2 text-muted">{{post.author.username}}</h6>
+					<p class="card-text">{{post.snippet|safe}}</p>
+					<p class="card-text"><small class="text-muted">Last updated on {{post.posted}}</small></p>
+					<a href="{% url 'category' post.category|slugify %}" class="card-link">{{post.category}}</a>
+				</div>
+			</div>
+		{% endfor %}
 	{% endblock %}
