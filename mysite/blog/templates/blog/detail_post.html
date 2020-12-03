@@ -1,5 +1,5 @@
 {% extends 'blog/base.html' %}
-	
+	{% load static %}
 	{% block title %}
 		<title>detail-{{post.title}}</title>
 	{% endblock %}
@@ -12,7 +12,12 @@
 		<img width="200px" height="250px" src="{{post.header_image.url}}">
 		{% endif %}
 		<p class="d-flex">{{post.content|safe}}<br></p>
-		<img width="25" height="25" class="rounded-circle" src="{{post.author.profile.profile_image.url}}"><small>{{post.author.username}}</small>
+		{% if post.author.profile.profile_image %}
+			<img width="25" height="25" class="rounded-circle" src="{{post.author.profile.profile_image.url}}">
+		{% else %}
+			<img width="25" height="25" class="rounded-circle" src="{% static 'blog/images/default.jpg' %}">
+		{% endif %}
+		<small>{{post.author.username}}</small>
 		{% if post.author.profile.instagram_urls %}
 			<a href="{{post.author.profile.instagram_urls}}">Instagram</a>
 		{% endif %}	
