@@ -22,9 +22,7 @@ class Profile(models.Model):
 	github_urls = models.CharField(max_length = 200, null = True, blank = True)
 	twitter_urls = models.CharField(max_length = 200, null = True, blank = True)
 	facebook_urls = models.CharField(max_length = 200, null = True, blank = True)
-
-
-
+	
 	def __str__(self):
 		return str(self.user)
 

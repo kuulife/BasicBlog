@@ -7,19 +7,55 @@
 	{% block content %}
 		<h1>
 			{{post.title}} ---
-		</h1><small>{{post.posted}}</small><br>
+		</h1>
+		<small class="text-muted">{{post.posted}}</small><br>
 		{% if post.header_image %}
-		<img width="200px" height="250px" src="{{post.header_image.url}}">
+		<img width="100%" src="{{post.header_image.url}}">
 		{% endif %}
-		<p class="d-flex">{{post.content|safe}}<br></p>
-		{% if post.author.profile.profile_image %}
-			<img width="25" height="25" class="rounded-circle" src="{{post.author.profile.profile_image.url}}">
+		<p class="d-flex">{{post.content|safe}}</p>
+		<small class="text-muted">{{post.posted|date:"F j, Y"}}</small>
+{% if user.is_authenticated %}
+	{% if post.author == user%}
+		<a class="btn btn-sm btn-outline-info" href="{% url 'post-update' post.id %}">Update Post</a>
+		<a class="btn btn-sm btn-outline-warning" href="{% url 'post-delete' post.id %}">Delete Post</a>
+		<br>
+	{% endif %}
+{% endif %}
+<br>
+<form action="{% url 'like-post' post.id %}" method="POST">
+		{% csrf_token %}
+		{% if user.is_authenticated %}
+			{% if liked %}
+				<button class="btn btn-sm btn-outline-danger" type="submit" name="post_id" value="{{post.id}}">Unlike</button>
+			{% else %}
+				<button class="btn btn-sm btn-outline-success" type="submit" name="post_id" value="{{post.id}}">Like</button>
+			{% endif%}
 		{% else %}
-			<img width="25" height="25" class="rounded-circle" src="{% static 'blog/images/default.jpg' %}">
+			<a href="{% url 'login' %}" class="">login</a>to like the post
+		{% endif %} 
+		... {{total_likes}} <span class="text-muted">likes</span>
+	</form>
+	<br>
+
+<div class="card mb-3 " style="max-width: 540px; border-radius: 5%">
+  <div class="row no-gutters">
+    <div class="col-md-2">
+    	{% if post.author.profile.profile_image %}
+			<img  class=" card-img rounded-circle" src="{{post.author.profile.profile_image.url}}">
+		{% else %}
+			<img class="card-img rounded-circle" src="{% static 'blog/images/default.jpg' %}">
 		{% endif %}
-		<small>{{post.author.username}}</small>
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title">{{post.author.username}}</h5>
+        <p class="card-text">
+    	<a href="{% url 'show-profile' post.author.profile.id %}">See Profile</a>
+    	{% if post.author.profile.website_urls %}
+			<a href="{{post.author.profile.website_urls}}">| Website</a>
+		{% endif %}	
 		{% if post.author.profile.instagram_urls %}
-			<a href="{{post.author.profile.instagram_urls}}">Instagram</a>
+			<a href="{{post.author.profile.instagram_urls}}">| Instagram</a>
 		{% endif %}	
 		{% if post.author.profile.github_urls %}
 			<a href="{{post.author.profile.github_urls}}">| Github</a>
@@ -29,35 +65,13 @@
 		{% endif %}
 		{% if post.author.profile.facebook_urls %}
 			<a href="{{post.author.profile.facebook_urls}}">| Facebook</a>
-		{% endif %}
-		<br>
-		<br>
-		{% if user.is_authenticated %}
-			{% if post.author == user%}
-				<a class="btn btn-sm btn-outline-info" href="{% url 'post-update' post.id %}">Update Post</a>
-				<a class="btn btn-sm btn-outline-warning" href="{% url 'post-delete' post.id %}">Delete Post</a>
-				<br>
-			{% endif %}
-		{% endif %}
-
-		
-		<br>
-			<form action="{% url 'like-post' post.id %}" method="POST">
-				{% csrf_token %}
-				{% if user.is_authenticated %}
-					{% if liked %}
-						<button class="btn btn-sm btn-outline-danger" type="submit" name="post_id" value="{{post.id}}">Unlike</button>
-					{% else %}
-						<button class="btn btn-sm btn-outline-success" type="submit" name="post_id" value="{{post.id}}">Like</button>
-					{% endif%}
-				{% else %}
-					<a href="{% url 'login' %}" class="">login</a>to like the post
-				{% endif %} 
-				... {{total_likes}} <span class="text-muted">likes</span>
-			</form>
-				
-		<hr><br>
-	<a href="{% url 'home' %}" class="btn btn-sm btn-outline-primary">back to home</a><small>alba kot</small>
+		{% endif %}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<br>		
+<a href="{% url 'home' %}" class="mb-4 btn btn-sm btn-outline-primary">back to home</a><small>alba kot</small>
 		
 
 		
