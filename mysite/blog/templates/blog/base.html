@@ -19,10 +19,12 @@
   		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     		<div class="navbar-nav">
       			{% if user.is_authenticated %}
+      				<a class="nav-item nav-link " href="{% url 'home' %}">Home</a>
+      				<a class="nav-item nav-link" href="{% url 'about' %}">About</a>
       				{% if cat_menu %}
 		      			<li class="nav-item dropdown">
 					        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					          Categories
+					          Post Categories
 					        </a>
 					        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					        	{% for item in cat_menu %}
@@ -31,9 +33,22 @@
 					        </div>
 				      </li>
 		      		{% endif %}
-      			<a class="nav-item nav-link " href="{% url 'home' %}">Home</a>
-      			<a class="nav-item nav-link" href="{% url 'about' %}">About</a>
-      			<a class="nav-item nav-link" href="{% url 'edit-profile' %}">Edit Profile</a>
+      			
+      			<li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          Profile
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		          		<a class="dropdown-item" href="{% url 'edit-profile' %}">Edit Profile Setting</a>
+			          	{% if user.profile.id %}
+			          		<a class="dropdown-item" href="{% url 'edit-profile-page' user.profile.id %}">Edit Profile Page</a>
+			          		<a class="dropdown-item" href="{% url 'show-profile' user.profile.id %}">See Profile Page</a>
+		          		{% else %}
+		          			<a class="dropdown-item" href="{% url 'create-profile-page' %}">Create Profile Page</a>
+	          			{% endif %}
+			          	
+			        </div>
+      			</li>
       			<a class="nav-item nav-link" href="{% url 'post-new' %}">New Post</a>
       			<a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
       			<a class="nav-item nav-link" href="{% url 'category-new' %}">Add 

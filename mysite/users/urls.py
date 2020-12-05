@@ -6,8 +6,9 @@ from users.views import (
 	UserUpdateView,
 	PasswordsChangeView,
 	ShowProfilePageView,
+    EditProfilePageView,
+    CreateProfilePageView,
 )
-
 
 
 urlpatterns = [
@@ -16,4 +17,7 @@ urlpatterns = [
     path('password-success/', views.password_success,name='password-success'),
     path('password/',PasswordsChangeView.as_view(template_name='users/change_password.html')),
     path('show-profile/<int:pk>/', ShowProfilePageView.as_view(),name='show-profile'),
+    path('edit-profile-page/<int:pk>/', EditProfilePageView.as_view(),name='edit-profile-page'),
+    path('create-profile-page/', CreateProfilePageView.as_view(),name='create-profile-page'),
+
     ]
