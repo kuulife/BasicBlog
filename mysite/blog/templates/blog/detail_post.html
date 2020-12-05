@@ -37,6 +37,18 @@
 	</form>
 	<br>
 
+	<h4 class="text-info">comments...</h4>
+	{% if not post.comments.all %}
+
+		<p>No comments yet</p><a href="">add one..</a>
+	{% else %}
+		{% for comment in post.comments.all %}
+			<strong>{{comment.name}} - <span class="text-muted">{{ comment.date_added|date:"F j, Y" }}</span></strong>
+			<p>{{comment.body }}</p>
+		{% endfor %}
+	{% endif %}
+
+
 <div class="card mb-3 " style="max-width: 540px; border-radius: 5%">
   <div class="row no-gutters">
     <div class="col-md-2">
