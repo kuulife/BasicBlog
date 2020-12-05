@@ -31,22 +31,33 @@
 				<button class="btn btn-sm btn-outline-success" type="submit" name="post_id" value="{{post.id}}">Like</button>
 			{% endif%}
 		{% else %}
-			<a href="{% url 'login' %}" class="">login</a>to like the post
+			<a href="{% url 'login' %}" class="">login </a>to like the post
 		{% endif %} 
-		... {{total_likes}} <span class="text-muted">likes</span>
+		... <span class="text-success">{{total_likes}} likes</span>
 	</form>
 	<br>
 
-	<h4 class="text-info">comments...</h4>
+<h4 class="text-info">comments...</h4>
+{% if user.is_authenticated %}
 	{% if not post.comments.all %}
 
-		<p>No comments yet</p><a href="">add one..</a>
+		<p>No comments yet</p><a href="{% url 'add-comment' post.pk %}">add one..</a>
 	{% else %}
+	<a href="{% url 'add-comment' post.pk %}">add comment</a><br><br>
 		{% for comment in post.comments.all %}
 			<strong>{{comment.name}} - <span class="text-muted">{{ comment.date_added|date:"F j, Y" }}</span></strong>
 			<p>{{comment.body }}</p>
 		{% endfor %}
+		<a href="{% url 'add-comment' post.pk %}">add comment</a>
 	{% endif %}
+{% else %}
+	{% for comment in post.comments.all %}
+			<strong>{{comment.name}} - <span class="text-muted">{{ comment.date_added|date:"F j, Y" }}</span></strong>
+			<p>{{comment.body }}</p>
+		{% endfor %}
+	<a href="{% url 'login' %}">login to add comment</a>
+{% endif %}
+<br><br><br><br>
 
 
 <div class="card mb-3 " style="max-width: 540px; border-radius: 5%">
@@ -86,6 +97,7 @@
 <a href="{% url 'home' %}" class="mb-4 btn btn-sm btn-outline-primary">back to home</a><small>alba kot</small>
 		
 
-		
+
+
 	
 	{% endblock %}

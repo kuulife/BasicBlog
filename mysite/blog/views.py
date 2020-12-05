@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post,Category
+from .models import Post,Category,Comment
 from django.http import  HttpResponseRedirect
-from .forms import PostForm,UpdateForm
-from django.urls import reverse
+from .forms import PostForm,UpdateForm,AddCommentForm
+from django.urls import reverse,reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
 	ListView,
@@ -106,5 +106,15 @@ def about(request):
 	return render(request, 'blog/about.html')
 
 
+class AddCommentView(LoginRequiredMixin,CreateView):
+	model = Comment
+	form_class = AddCommentForm
+	template_name = 'blog/add_comments.html'
+	ordering = ['-date_added']
+	success_url = reverse_lazy('home')
+
+	def form_valid(self,form):
+		form.instance.post_id = self.kwargs['pk']
+		return super().form_valid(form)
 
 
