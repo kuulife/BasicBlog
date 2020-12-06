@@ -111,7 +111,6 @@ class AddCommentView(LoginRequiredMixin,CreateView):
 	form_class = AddCommentForm
 	template_name = 'blog/add_comments.html'
 	ordering = ['-date_added']
-	success_url = reverse_lazy('home')
 
 	def form_valid(self,form):
 		form.instance.post_id = self.kwargs['pk']
